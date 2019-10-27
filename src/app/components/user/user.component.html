@@ -1,0 +1,36 @@
+
+<div class="container">
+    <h3 style="text-align: center;">Users</h3>
+    <button type="button" class="btn btn-primary" [routerLink]="['/createUser']" routerLinkActive="router-link-active" >  Add User</button>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of users">
+          <tr>
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.telephone}}</td>
+            <td>
+              <div style="text-align:center">
+                  <a class="btn btn-success" routerLink="/editUser/{{item.id}}" ><i class="fas fa-user-edit"></i>edit</a>
+                  <button type="button" class="btn btn-danger" (click)="deleteUser(item.id)"><i class="fas fa-user-alt-slash"></i>delet</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+</div>
+
+
+
+<!-- <i class="fas fa-user-plus"></i> -->
