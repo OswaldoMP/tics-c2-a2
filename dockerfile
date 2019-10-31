@@ -2,7 +2,7 @@ FROM node:10
 
 RUN npm install -g http-server
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -10,9 +10,9 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN npm run build --prod
 
-EXPOSE 4200
+EXPOSE 8080
 
 CMD [ "http-server", "dist/tic-c2-a2" ]
 
