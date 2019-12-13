@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient,HttpHeaders } from '@angular/common/http'
 import { ReturnStatement } from '@angular/compiler';
-import { Observable } from 'rxjs';
+import { Observable, ObservedValueOf } from 'rxjs';
 import { User } from '../models/user'
 
 @Injectable({
@@ -10,7 +10,8 @@ import { User } from '../models/user'
 })
 export class ApiService {
   
-  urlApi = 'http://localhost:49163/api/v1/users/';
+  // urlApi = 'http://localhost:49163/api/v1/users/';
+  urlApi = 'https://tic-soa-extra.herokuapp.com/api/v1';
 
   constructor(
     private http:HttpClient
@@ -40,6 +41,53 @@ export class ApiService {
 
   public update(id:any,data:User): Observable<User>{
     return this.http.put<User>(this.urlApi+id,JSON.stringify(data),this.httpOptions)
+  }
+
+  //obtener los itinerarios del usuario
+  public getListaItinerario(id:any):Observable<any>{
+    return this.http.get<any>(this.urlApi+'/users/'+id)
+  }
+
+  //obtener las tareas, actividades del itinerario del usuario
+  public getListaActividad(id:any):Observable<any>{
+    return this.http.get<any>(this.urlApi+'/itinerarios/'+id)
+  }
+
+  //actualizar Actividades
+  public updateActivida(id:any,data:any):Observable<any>{
+    return this.http.put<any>(this.urlApi+'/tareas/'+id,JSON.stringify(data),this.httpOptions)
+  }
+
+  //actualizar Tareas
+  public updateTarea(id:any, data:any):Observable<any>{
+    return this.http.put<any>(this.urlApi+'/tareas/'+id,JSON.stringify(data),this.httpOptions)
+  }
+
+  //create user
+  public storeUser(data:any):Observable<any>{
+    return this.http.post<any>(this.urlApi+'/users/',JSON.stringify(data),this.httpOptions)
+  }
+
+  //create Itinerario
+  public storeItinerario(data:any):Observable<any>{
+    return this.http.post<any>(this.urlApi+'/itinerarios',JSON.stringify(data),this.httpOptions)
+  }
+
+  //create Tarea
+  public storeTarea(data:any):Observable<any>{
+    return this.http.post<any>(this.urlApi+'/tareas',JSON.stringify(data),this.httpOptions)
+  }
+
+  public deleteItinerario(id:any){
+    return this.http.delete(this.urlApi+'/itinerarios/'+id)
+  }
+
+  public deleteTarea(id:any){
+    return this.http.delete(this.urlApi+'/tareas/'+id)
+  }
+
+  public login(data:any):Observable<any>{
+    return this.http.post<any>(this.urlApi+'/login',JSON.stringify(data),this.httpOptions)
   }
 
 }

@@ -1,1 +1,26 @@
-<p>delete-user works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign In</h5>
+            <!-- <form class="form-signin"> -->
+              <div class="form-group">
+                  <label for="exampleDropdownFormEmail1">Email address</label>
+                  <input type="email" class="form-control" id="exampleDropdownFormEmail1" [(ngModel)]="user.email" placeholder="email@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" class="form-control" [(ngModel)]="user.password" placeholder="Password" required>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="login()" type="submit">Sign in</button>
+              <hr class="my-4">
+              <a class="dropdown-item" [routerLink]="['/registration']" routerLinkActive="router-link-active" >New around here? Sign up</a>
+              <a class="dropdown-item" [routerLink]="['/email']" routerLinkActive="router-link-active" >Forgot password?</a>
+            <!-- </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

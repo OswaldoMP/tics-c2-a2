@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditUserComponent implements OnInit {
   public idUser:any;
   public dataUser : any = [];
-  public user:User;
+  public user:any;
 
   @Output() update = new EventEmitter<number>();
 
@@ -22,7 +22,7 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit() {
     this.idUser = this.activatedRoute.snapshot.paramMap.get('id')
-    this.getId(this.idUser)
+    this.getTarea(this.idUser)
   }
 
   public getId(id:any){
@@ -42,5 +42,35 @@ export class EditUserComponent implements OnInit {
       console.log(erro)
     })
   }
+
+  public storeTarea(){
+    this.user.itinerario_id = this.idUser
+    this.api.storeTarea(this.user).subscribe(data=>{
+      console.log('TAREA => ', data)
+      this.getTarea(this.idUser)
+    })
+  }
+
+  public getTarea(id:any){
+    this.api.getListaActividad(id).subscribe(data=>{
+      console.log('Tareas User => ',data)
+      this.dataUser = data
+    })
+  }
+
+  public deleteTarea(id:any){
+    this.api.deleteTarea(id).subscribe(data=>{
+      console.log(data)
+      this.getTarea(this.idUser)
+    })
+  }
+
+
+  public login(){
+    this.api.login(this.user)
+  }
+
+
+
 
 }

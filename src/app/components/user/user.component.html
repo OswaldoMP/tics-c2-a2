@@ -1,23 +1,23 @@
 
 <div class="container">
-    <h3 style="text-align: center;">Users</h3>
-    <button type="button" class="btn btn-primary" [routerLink]="['/createUser']" routerLinkActive="router-link-active" >  Add User</button>
+    <h3 style="text-align: center;">Itinerario</h3>
+    <button type="button" class="btn btn-primary" [routerLink]="['/createUser']" routerLinkActive="router-link-active" >  Add Itinerario</button>
     <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Telephone</th>
+            <th scope="col">Fecha</th>
+            <!-- <th scope="col">Telephone</th> -->
             <th scope="col">Actions</th>
           </tr>
         </thead>
-        <tbody *ngFor="let item of users">
+        <tbody *ngFor="let item of users; let i=index">
           <tr>
-            <th scope="row">{{item.id}}</th>
+            <th scope="row">{{i+1}}</th>
             <td>{{item.name}}</td>
-            <td>{{item.email}}</td>
-            <td>{{item.telephone}}</td>
+            <td>{{item.fecha}}</td>
+            <!-- <td>{{item.telephone}}</td> -->
             <td>
               <div style="text-align:center">
                   <a class="btn btn-success" routerLink="/editUser/{{item.id}}" ><i class="fas fa-user-edit"></i>edit</a>
@@ -27,6 +27,7 @@
           </tr>
         </tbody>
       </table>
+      <button type="button" class="btn btn-danger" (click)="fin()" > Cerrar Sesion</button>
 
 
 </div>

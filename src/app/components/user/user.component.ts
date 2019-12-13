@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/api.service'
 
 @Component({
@@ -13,10 +13,12 @@ export class UserComponent implements OnInit {
 
   @Output() delete = new EventEmitter<number>();
 
-  constructor(private api:ApiService) { this.getUserAll();}
+  constructor(private api:ApiService,private router:Router
+    ) { }
 
   ngOnInit() {
-    this.getUserAll();
+    // this.getUserAll();
+    this.getItinerario();
   }
 
   public getUserAll(){
@@ -32,10 +34,25 @@ export class UserComponent implements OnInit {
 
   public deleteUser(id:number){
     console.log('userId: ' + id)
-    this.api.deleteUser(id).subscribe(data=>{
-      this.getUserAll();
+    this.api.deleteItinerario(id).subscribe(data=>{
+      this.getItinerario();
     })
     // this.delete.emit(id)
   }
+
+  //recuperacio y mostrar los itinerarios del usuario
+  public getItinerario(){
+    this.api.getListaItinerario(localStorage.getItem('idUser')).subscribe(data=>{
+      console.log('Itinerario User: ',data)
+      this.users = data;
+    })
+  }
+
+  public fin(){
+    localStorage.setItem('idUser','-1')
+    this.router.navigate(['/login'])
+  }
+  
+
 
 }

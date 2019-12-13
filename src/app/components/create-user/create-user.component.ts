@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service'
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { User } from '../../models/user'
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-create-user',
@@ -12,27 +14,28 @@ import { Router } from '@angular/router';
 })
 export class CreateUserComponent implements OnInit {
 
-  public dataUser : User;
-
+  public dataUser : any;
+  public idUser
   constructor(
     private api:ApiService,
-    private route:Router) { this.dataUser = new User();}
+    private route:Router,
+    private activatedRoute:ActivatedRoute) { this.dataUser = new User();}
 
 
   
   // private fb: FormBuilder
   ngOnInit() {
+    this.idUser = this.activatedRoute.snapshot.paramMap.get('id')
   }
 
 
   public store(){
-    this.api.store(this.dataUser).subscribe(data=>{
-      this.route.navigate(["/users"])
-      alert("Save successful")
-    },error=>{
-      console.log(error)
+    this.dataUser.user_id = 1
+    console.log(this.dataUser)
+    this.api.storeItinerario(this.dataUser).subscribe(data=>{
+      console.log('ADD',data)
+      this.route.navigate(['/users'])
     })
-
   }
 
 }
